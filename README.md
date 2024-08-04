@@ -8,6 +8,8 @@ This repo discusses two possible ways to interpolate rigid body motions in Unity
 
 The scripts were tested in Unity `v2020.3.f25f1`.
 
+---
+
 ## Independent SLERP + LERP Interpolation
 
 In Unity, coordinate frames or poses are represented by `Quaternion` (representing rotation), and `Vector3` (representing translation).
@@ -20,7 +22,9 @@ One direct way to interpolate rigid body motion in $\mathbb{SE(3)}$ is to interp
 
 <div style='text-align:center'><i>Figure 1 - Independent SLERP + LERP interpolation.</i></div>
 
-The code snippet below shows how to achieve this rigid body motion interpolation with built-in Unity functionalities.
+<br/>
+
+The code snippet below (from [MoveIndependent.cs](src/MoveIndependent.cs)) shows how to achieve this rigid body motion interpolation with built-in Unity functionalities.
 
 ```c#
 public class MoveIndependent : MonoBehaviour
@@ -73,21 +77,19 @@ public class MoveIndependent : MonoBehaviour
 
 Full script: <a href='src/MoveIndependent.cs'>MoveIndependent.cs</a>
 
+---
+
 ## Screw Linear Interpolation (ScLERP) with Dual Quaternions
 
 Alternatively, one can interpolate rigid body motion between two poses along a screw motion as illustrated below:
 
-<div><img src='images/screw-perspective.gif'></div>
+<div><img src='images/screw.gif'></div>
 
-<div style='text-align:center'><i>Figure 2 - Perspective view of a screw motion.</i></div>
+<div style='text-align:center'><i>Figure 2 - Top: Perspective view of a screw motion. Lower left: Coaxial view of a screw motion. Lower right: Side view of a screw motion.</i></div>
 
 <br/>
 
-<span><img src='images/screw-side.gif' width='49%' style='margin:2px'></span><span><img src='images/screw-coaxial.gif' width='49%' style='margin:2px'></span>
-
-<div style='text-align:center'><i>Figure 3 - Left: Side view of a screw motion. Right: Coaxial view of a screw motion.</i></div>
-
-The code snippet below shows how to achieve this rigid body motion interpolation using a custom defined class `DualQuat`.
+The code snippet below (from [MoveDQ.cs](src/MoveDQ.cs)) shows how to achieve this rigid body motion interpolation using a custom defined class `DualQuat` (which implementation is also defined in [MoveDQ.cs](src/MoveDQ.cs)).
 
 ```c#
 public class MoveDQ : MonoBehaviour
@@ -175,6 +177,8 @@ public class MoveDQ : MonoBehaviour
 ```
 
 Full script: <a href='src/MoveDQ.cs'>MoveDQ.cs</a>
+
+---
 
 ## Underlying Maths for ScLERP with Dual Quaternions
 
